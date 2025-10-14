@@ -7,6 +7,7 @@ class Product {
   int quantity;
   final String image;
   List<Color>? colors;
+  int? quatity;
 
   Product({
     required this.name,
@@ -14,6 +15,7 @@ class Product {
     required this.size,
     required this.quantity,
     required this.image,
-    this.colors
+    this.colors,
+    this.quatity = 1,
   });
 }

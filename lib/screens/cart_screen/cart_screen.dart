@@ -1,8 +1,10 @@
 import 'package:ecommerce_app/constants/text_config.dart';
 import 'package:ecommerce_app/models/product_model.dart';
+import 'package:ecommerce_app/screens/cart_screen/bloc/cart_bloc.dart';
 import 'package:ecommerce_app/screens/cart_screen/widgets/summary_section.dart';
 import 'package:ecommerce_app/screens/product_detail/widgets/icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CartScreen extends StatefulWidget {
@@ -22,49 +24,56 @@ class _CartScreenState extends State<CartScreen> {
     double shipping = 40.90;
     double total = subtotal + shipping;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  iconButton(Icons.arrow_back_ios_new_rounded, () {
-                    //Navigator.pop(context);
-                  }),
-                  Text(
-                    'My Cart',
-                    style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
+    return BlocBuilder<CartBloc, CartState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
                   ),
-                  const SizedBox(width: 40),
-                ],
-              ),
-            ),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: cartItems.length,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 10,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      iconButton(Icons.arrow_back_ios_new_rounded, () {
+                        //Navigator.pop(context);
+                      }),
+                      Text(
+                        'My Cart',
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(width: 40),
+                    ],
+                  ),
                 ),
-                itemBuilder: (context, index) {
-                  final item = cartItems[index];
-                  return _cartItemCard(item, index);
-                },
-              ),
-            ),
 
-            summarySection(subtotal, shipping, total),
-          ],
-        ),
-      ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: state.cartItems.length,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    itemBuilder: (context, index) {
+                      final item = state.cartItems[index];
+                      return _cartItemCard(item, index);
+                    },
+                  ),
+                ),
+
+                summarySection(subtotal, shipping, total),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -120,9 +129,9 @@ class _CartScreenState extends State<CartScreen> {
                   Row(
                     children: [
                       _qtyButton(Icons.remove, () {
-                        setState(() {
-                          if (item.quantity > 1) item.quantity--;
-                        });
+                        context.read<CartBloc>().add(
+                          DecrementEvent(index: index),
+                        );
                       }),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -135,9 +144,9 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ),
                       _qtyButton(Icons.add, () {
-                        setState(() {
-                          item.quantity++;
-                        });
+                        context.read<CartBloc>().add(
+                          IncrementEvent(index: index),
+                        );
                       }),
                     ],
                   ),

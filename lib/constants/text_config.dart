@@ -8,7 +8,7 @@ const List<String> brands = ['Nike', 'Adidas', 'Puma', 'Crocs', 'Fila'];
 final List<Product> cartItems = [
   Product(
     name: 'Nike Club Max',
-    price: 64.95,
+    price: 100,
     size: 'L',
     quantity: 1,
     image: 'assets/img/s1.png',
@@ -16,7 +16,7 @@ final List<Product> cartItems = [
   ),
   Product(
     name: 'Nike Air Max 200',
-    price: 64.95,
+    price: 200,
     size: 'XL',
     quantity: 1,
     image: 'assets/img/s2.png',
@@ -24,7 +24,7 @@ final List<Product> cartItems = [
   ),
   Product(
     name: 'Nike Air Max',
-    price: 64.95,
+    price: 300,
     size: 'XXL',
     quantity: 1,
     image: 'assets/img/s3.png',
@@ -32,7 +32,7 @@ final List<Product> cartItems = [
   ),
   Product(
     name: 'Puma Nitro',
-    price: 57.6,
+    price: 400,
     image: 'assets/img/s4.png',
     colors: [Colors.teal, Colors.indigoAccent],
 

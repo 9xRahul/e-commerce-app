@@ -23,7 +23,7 @@ Widget summarySection(double subtotal, double shipping, double total) {
       children: [
         summaryRow('Subtotal', subtotal),
         const SizedBox(height: 10),
-        summaryRow('Shopping', shipping),
+        summaryRow('Shipping', shipping, isShipping: true),
         const Divider(height: 25, thickness: 1, color: Color(0xFFEAEAEA)),
         summaryRow('Total Cost', total, isTotal: true),
         const SizedBox(height: 20),

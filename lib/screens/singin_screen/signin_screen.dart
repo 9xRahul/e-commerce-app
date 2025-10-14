@@ -28,11 +28,11 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: SizeConfig.screenWidth / 3),
-
+              SizedBox(height: SizeConfig.screenHeight / 10),
               Center(
                 child: Column(
                   children: [
+                    //    SizedBox(height: 30),
                     Text(
                       'Hello Again!',
                       style: GoogleFonts.poppins(
@@ -191,7 +191,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
 
-              SizedBox(height: SizeConfig.screenWidth / 3),
+              SizedBox(height: 50),
 
               Center(
                 child: RichText(
