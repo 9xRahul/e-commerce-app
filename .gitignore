@@ -1,0 +1,103 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+.pub-cache/
+build/
+coverage/
+flutter_*.png
+flutter_export_environment.sh
+
+# Symbolic links
+**/*.symlink
+
+# Android
+*.iml
+.gradle/
+local.properties
+/.idea/
+*.apk
+*.aar
+*.jks
+*.keystore
+*.dex
+*.class
+*.lock
+*.log
+captures/
+output.json
+/app/*.keystore
+
+# iOS
+**/Pods/
+**/Podfile.lock
+**/Podfile.local
+**/xcuserdata/
+**/DerivedData/
+**/.generated/
+**/.dart_tool/
+Runner.xcworkspace/
+Runner.xcodeproj/project.xcworkspace/
+Runner.xcodeproj/xcuserdata/
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+
+# macOS
+macos/Flutter/ephemeral/
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Flutter/GeneratedPluginRegistrant.m
+macos/Flutter/GeneratedPluginRegistrant.h
+
+# Windows
+windows/Flutter/ephemeral/
+windows/flutter/ephemeral/
+*.pdb
+
+# Linux
+linux/flutter/ephemeral/
+
+# Web
+lib/generated_plugin_registrant.dart
+web/.dart_tool/
+web/wasm/
+
+# VS Code
+.vscode/
+.history/
+
+# IntelliJ / Android Studio
+.idea/
+*.ipr
+*.iws
+*.iml
+
+# Xcode
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.pbxuser
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+# Firebase / Secrets / Environment
+*.env
+google-services.json
+GoogleService-Info.plist
+firebase_app_id_file.json
+
+# Other
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+.svn/
+*.tmp
+*.bak
+*.old
+*.orig
+*.rej
+
+# Generated plugin registrant
+lib/generated_plugin_registrant.dart
