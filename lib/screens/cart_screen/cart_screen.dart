@@ -165,9 +165,13 @@ class _CartScreenState extends State<CartScreen> {
                 const SizedBox(height: 30),
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      cartItems.removeAt(index);
-                    });
+                    context.read<CartBloc>().add(
+                      DeleteCartItemEvent(index: index),
+                    );
+
+                    // setState(() {
+                    //   cartItems.removeAt(index);
+                    // });
                   },
                   child: Container(
                     padding: const EdgeInsets.all(6),

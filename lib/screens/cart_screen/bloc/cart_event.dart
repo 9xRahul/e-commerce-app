@@ -13,3 +13,8 @@ class DecrementEvent extends CartEvent {
   final int index;
   DecrementEvent({required this.index});
 }
+
+class DeleteCartItemEvent extends CartEvent {
+  final int index;
+  DeleteCartItemEvent({required this.index});
+}

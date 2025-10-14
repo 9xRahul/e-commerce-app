@@ -19,6 +19,23 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       ) {
     on<IncrementEvent>(_increment);
     on<DecrementEvent>(_decrementEvent);
+    on<DeleteCartItemEvent>(_deleteCartItem);
+  }
+
+  void _deleteCartItem(DeleteCartItemEvent event, Emitter<CartState> emit) {
+    state.cartItems.removeAt(event.index);
+    double subTotal = calculateTotal(state.cartItems);
+
+    double itemTotal =
+        state.cartItems[event.index].price *
+        state.cartItems[event.index].quantity;
+    emit(
+      state.copyWith(
+        cartItems: cartItems,
+        subTotal: subTotal.toInt(),
+        total: state.total - itemTotal.toInt(),
+      ),
+    );
   }
 
   void _increment(IncrementEvent event, Emitter<CartState> emit) {

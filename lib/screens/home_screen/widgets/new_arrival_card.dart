@@ -67,9 +67,7 @@ Widget newArrivalCard({
               ),
             ),
             !isLeft
-                ? Column(
-                    children: [Image.asset('assets/img/s$id.png', height: 120)],
-                  )
+                ? Image.asset('assets/img/s$id.png', height: 120)
                 : SizedBox(),
             const SizedBox(width: 10),
           ],
