@@ -91,7 +91,7 @@ Widget productCard(Product item, BuildContext? context) {
                   return GestureDetector(
                     onTap: () {
                       print(item.id);
-                      showAppSnackBar(context!, message: "Item Added to cart");
+               
 
                       if (state.cartProducts.contains(item)) {
                         showAppSnackBar(

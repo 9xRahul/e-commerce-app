@@ -31,7 +31,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   void _deleteCartItem(DeleteCartItemEvent event, Emitter<CartState> emit) {
-    print(state.cartProducts);
+    print("delete bloc invocked");
 
     List<Product> newCart = [];
 
@@ -41,11 +41,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       }
     }
 
+    state.cartProducts.remove(cartItems[event.index]);
     double subTotal = calculateTotal(newCart);
 
     emit(
       state.copyWith(
-        cartProducts: newCart,
+        cartProducts: state.cartProducts,
         subTotal: subTotal.toInt(),
         total: subTotal.toInt() + 40,
       ),

@@ -54,7 +54,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
 
-                state.cartProducts.length == 0
+                state.cartProducts.isEmpty
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
