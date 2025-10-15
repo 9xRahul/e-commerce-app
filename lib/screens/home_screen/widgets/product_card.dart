@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/constants/text_config.dart';
 import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/screens/cart_screen/bloc/cart_bloc.dart';
+import 'package:ecommerce_app/screens/fav_screen/bloc/favourite_bloc.dart';
 import 'package:ecommerce_app/screens/product_detail/product_detail_screen.dart';
 import 'package:ecommerce_app/screens/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,28 @@ Widget productCard(Product item, BuildContext? context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          BlocBuilder<FavouriteBloc, FavouriteState>(
+            builder: (context, state) {
+              return Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      context.read<FavouriteBloc>().add(
+                        AddToFavEvent(id: item.id),
+                      );
+                    },
+                    child: Icon(
+                      state.favouriteList.contains(item)
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      size: 20,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
           GestureDetector(
             onTap: () {
               Navigator.of(context!).push(

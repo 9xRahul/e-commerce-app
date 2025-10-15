@@ -19,6 +19,10 @@ class CartState extends Equatable {
     required int subTotal,
     required int total,
   }) {
-    return CartState(cartProducts: cartProducts, subTotal: subTotal, total: total);
+    return CartState(
+      cartProducts: this.cartProducts,
+      subTotal: subTotal,
+      total: total,
+    );
   }
 }
