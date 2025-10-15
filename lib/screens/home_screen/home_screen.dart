@@ -169,16 +169,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _productGrid() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          productCard(cartItems[1], context),
-          productCard(cartItems[0], context),
-          productCard(cartItems[2], context),
-          productCard(cartItems[3], context),
-        ],
+    return SizedBox(
+      height: 250, // ensures no unbounded height error
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: cartItems.length,
+        itemBuilder: (context, index) {
+          return productCard(cartItems[index], context);
+        },
       ),
     );
   }

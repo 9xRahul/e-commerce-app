@@ -9,43 +9,57 @@ part 'cart_state.dart';
 
 //cart bloc
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc()
-    : super(
-        CartState(
-          cartItems: cartItems,
-          total: _calculateInitialTotal(cartItems) + 40,
-          subTotal: _calculateInitialTotal(cartItems),
-        ),
-      ) {
+  CartBloc() : super(CartState(cartProducts: [], total: 0, subTotal: 0)) {
     on<IncrementEvent>(_increment);
     on<DecrementEvent>(_decrementEvent);
     on<DeleteCartItemEvent>(_deleteCartItem);
+    on<AddtoCartEvent>(_addToCartEvent);
+  }
+
+  void _addToCartEvent(AddtoCartEvent event, Emitter<CartState> emit) {
+    if (!state.cartProducts.contains(cartItems[event.index])) {
+      state.cartProducts.add(cartItems[event.index]);
+      List<Product> tempList = state.cartProducts;
+      emit(
+        state.copyWith(
+          cartProducts: tempList,
+          subTotal: _calculateInitialTotal(state.cartProducts),
+          total: _calculateInitialTotal(state.cartProducts) + 40,
+        ),
+      );
+    }
   }
 
   void _deleteCartItem(DeleteCartItemEvent event, Emitter<CartState> emit) {
-    state.cartItems.removeAt(event.index);
-    double subTotal = calculateTotal(state.cartItems);
+    print(state.cartProducts);
 
-    double itemTotal =
-        state.cartItems[event.index].price *
-        state.cartItems[event.index].quantity;
+    List<Product> newCart = [];
+
+    for (var item in state.cartProducts) {
+      if (item.id != event.index) {
+        newCart.add(item);
+      }
+    }
+
+    double subTotal = calculateTotal(newCart);
+
     emit(
       state.copyWith(
-        cartItems: cartItems,
+        cartProducts: newCart,
         subTotal: subTotal.toInt(),
-        total: state.total - itemTotal.toInt(),
+        total: subTotal.toInt() + 40,
       ),
     );
   }
 
   void _increment(IncrementEvent event, Emitter<CartState> emit) {
-    state.cartItems[event.index].quantity += 1;
+    state.cartProducts[event.index].quantity += 1;
 
-    double subTotal = calculateTotal(state.cartItems);
+    double subTotal = calculateTotal(state.cartProducts);
 
     emit(
       state.copyWith(
-        cartItems: cartItems,
+        cartProducts: state.cartProducts,
         subTotal: subTotal.toInt(),
         total: (subTotal + 40).toInt(),
       ),
@@ -54,13 +68,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   void _decrementEvent(DecrementEvent event, Emitter<CartState> emit) {
     double subTotal = 0;
-    if (state.cartItems[event.index].quantity > 1) {
-      state.cartItems[event.index].quantity -= 1;
-      subTotal = calculateTotal(state.cartItems);
+    if (state.cartProducts[event.index].quantity > 1) {
+      state.cartProducts[event.index].quantity -= 1;
+      subTotal = calculateTotal(state.cartProducts);
 
       emit(
         state.copyWith(
-          cartItems: cartItems,
+          cartProducts: state.cartProducts,
           subTotal: subTotal.toInt(),
           total: (subTotal + 40).toInt(),
         ),

@@ -54,21 +54,32 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
 
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: state.cartItems.length,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      final item = state.cartItems[index];
-                      return _cartItemCard(item, index);
-                    },
-                  ),
-                ),
+                state.cartProducts.length == 0
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 150),
+                          Image(image: AssetImage("assets/img/emptycart.jpg")),
+                        ],
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          itemCount: state.cartProducts.length,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
+                          itemBuilder: (context, index) {
+                            final item = state.cartProducts[index];
+                            print(item.name);
+                            return _cartItemCard(item, index);
+                          },
+                        ),
+                      ),
 
-                summarySection(subtotal, shipping, total),
+                state.cartProducts.isEmpty
+                    ? Container()
+                    : summarySection(subtotal, shipping, total),
               ],
             ),
           ),
@@ -130,7 +141,7 @@ class _CartScreenState extends State<CartScreen> {
                     children: [
                       _qtyButton(Icons.remove, () {
                         context.read<CartBloc>().add(
-                          DecrementEvent(index: index),
+                          DecrementEvent(index: item.id),
                         );
                       }),
                       Padding(
@@ -145,7 +156,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       _qtyButton(Icons.add, () {
                         context.read<CartBloc>().add(
-                          IncrementEvent(index: index),
+                          IncrementEvent(index: item.id),
                         );
                       }),
                     ],
@@ -165,25 +176,20 @@ class _CartScreenState extends State<CartScreen> {
                 const SizedBox(height: 30),
                 GestureDetector(
                   onTap: () {
+                    print("deletedid ${item.id}");
                     context.read<CartBloc>().add(
-                      DeleteCartItemEvent(index: index),
+                      DeleteCartItemEvent(index: item.id),
                     );
-
-                    // setState(() {
-                    //   cartItems.removeAt(index);
-                    // });
                   },
                   child: Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: index == 1
-                          ? Colors.red.shade50
-                          : Colors.grey.shade100,
+                      color: Colors.grey.shade100,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
                       Icons.delete_outline,
-                      color: index == 1 ? Colors.red : Colors.grey,
+                      color: Colors.grey,
                       size: 20,
                     ),
                   ),
