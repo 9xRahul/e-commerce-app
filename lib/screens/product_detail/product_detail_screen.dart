@@ -149,6 +149,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               onTap: () {
                                 setState(() {
                                   _selectedSize = size;
+                                  
                                 });
                               },
                               child: Container(
